@@ -1,0 +1,1139 @@
+/* ============================================================
+   COLOMBIA 5.0 — styles.css
+   Paleta: Coolors #7400b8 → #80ffdb (Púrpura profundo a Menta)
+   Fuentes: Orbitron (display) + Inter (body) — Google Fonts
+   ============================================================ */
+
+/* ──────────────────────────────────────────────────────────
+   1. TOKENS DE DISEÑO
+   Todos los colores, tipografías y espaciados en un solo lugar.
+   Para cambiar la paleta, modifica solo esta sección.
+   ────────────────────────────────────────────────────────── */
+:root {
+  /* Paleta principal de 10 puntos (Coolors) */
+  --c1: #7400b8;
+  /* Púrpura profundo  */
+  --c2: #6930c3;
+  /* Púrpura           */
+  --c3: #5e60ce;
+  /* Índigo            */
+  --c4: #5390d9;
+  /* Azul              */
+  --c5: #4ea8de;
+  /* Azul cielo        */
+  --c6: #48bfe3;
+  /* Cian-azul         */
+  --c7: #56cfe1;
+  /* Cian              */
+  --c8: #64dfdf;
+  /* Teal              */
+  --c9: #72efdd;
+  /* Menta             */
+  --c10: #80ffdb;
+  /* Menta luminosa    */
+
+  /* Fondos oscuros en escala */
+  --bg: #06060f;
+  --bg2: #0c0c1e;
+  --bg3: #111130;
+
+  /* Colores de texto */
+  --text: #e8e8f4;
+  --text-muted: #8888aa;
+
+  /* Gradientes reutilizables */
+  --grad-main: linear-gradient(135deg, var(--c1), var(--c3), var(--c7), var(--c10));
+  --grad-accent: linear-gradient(90deg, var(--c1), var(--c10));
+  --grad-card: linear-gradient(135deg, rgba(116, 0, 184, .14), rgba(94, 96, 206, .08));
+
+  /* Tipografía */
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Espaciado de secciones */
+  --pad-section: 5.5rem 2rem;
+
+  /* Border radius */
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-sm: 8px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   2. RESET Y BASE
+   ────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* Sistema de idioma:
+   El body tiene clase "lang-es" o "lang-en".
+   .es y .en se muestran/ocultan según la clase activa. */
+body.lang-es .en {
+  display: none !important;
+}
+
+body.lang-en .es {
+  display: none !important;
+}
+
+/* Texto con gradiente (utilitaria) */
+.grad-text {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ──────────────────────────────────────────────────────────
+   3. BARRA DE NAVEGACIÓN FIJA
+   ────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .95rem 2.5rem;
+  background: rgba(6, 6, 15, .88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(116, 0, 184, .28);
+}
+
+/* Logo */
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+/* Lista de enlaces */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: color .25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--c10);
+}
+
+/* Botón toggle de idioma */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem 1.1rem;
+  background: rgba(116, 0, 184, .18);
+  border: 1px solid var(--c2);
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--c10);
+  letter-spacing: .06em;
+  transition: background .25s, border-color .25s;
+}
+
+.lang-toggle:hover {
+  background: rgba(116, 0, 184, .38);
+  border-color: var(--c9);
+}
+
+/* Hamburguesa (mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--c10);
+  border-radius: 2px;
+  transition: transform .3s;
+}
+
+/* ──────────────────────────────────────────────────────────
+   4. SECCIÓN HERO
+   ────────────────────────────────────────────────────────── */
+#home {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 9rem 2rem 5rem;
+  overflow: hidden;
+}
+
+/* Orbe decorativa izquierda (púrpura) */
+#home::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -8%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(116, 0, 184, .38) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* Orbe decorativa derecha (menta) */
+#home::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  right: -8%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(128, 255, 219, .18) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* Pastilla eyebrow */
+.hero-eyebrow {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--c9);
+  border: 1px solid rgba(114, 239, 221, .35);
+  border-radius: 50px;
+  padding: .42rem 1.3rem;
+  margin-bottom: 1.6rem;
+  position: relative;
+}
+
+/* Título grande */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  font-weight: 900;
+  line-height: .92;
+  letter-spacing: -.02em;
+  margin-bottom: .3rem;
+  position: relative;
+}
+
+/* "5.0" con gradiente */
+.hero-version {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  font-weight: 900;
+  line-height: .92;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+/* Subtítulo hero */
+.hero-sub {
+  max-width: 580px;
+  margin: 0 auto 2.2rem;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Botón CTA */
+.btn-primary {
+  display: inline-block;
+  padding: .88rem 2.8rem;
+  background: var(--grad-accent);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 0 32px rgba(116, 0, 184, .45);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 55px rgba(128, 255, 219, .28);
+}
+
+/* Estadísticas del hero */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(116, 0, 184, .28);
+  position: relative;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-lbl {
+  font-size: .75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-top: .2rem;
+}
+
+/* ──────────────────────────────────────────────────────────
+   5. ENCABEZADO GENÉRICO DE SECCIÓN
+   ────────────────────────────────────────────────────────── */
+.section-hd {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-tag {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--c8);
+  margin-bottom: .9rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.section-divider {
+  width: 56px;
+  height: 3px;
+  background: var(--grad-accent);
+  margin: 1.3rem auto 0;
+  border-radius: 3px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   6. SECCIÓN ABOUT — ¿Qué es Colombia 5.0?
+   ────────────────────────────────────────────────────────── */
+#about {
+  padding: var(--pad-section);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Banner oficial del evento (banner-bogota.jpg) ──
+   Imagen wide landscape, centrada, con overlay y texto encima */
+.about-banner-wrap {
+  margin-bottom: 3.5rem;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  /* La altura se adapta a la proporción real de la imagen (1094×540 ≈ 2:1)
+     Usamos aspect-ratio para que siempre se vea la imagen completa sin cortes */
+  aspect-ratio: 1094 / 540;
+  width: 100%;
+  background: var(--bg2);
+  /* fondo oscuro: rellena el espacio sin llamar la atención */
+  border: 1px solid rgba(116, 0, 184, .3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+}
+
+.about-banner-wrap img {
+  width: 100%;
+  height: 100%;
+  /* contain = imagen completa siempre visible, sin recorte */
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+/* Overlay degradado para que el texto sea legible */
+.about-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(116, 0, 184, .5), rgba(6, 6, 15, .3));
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.about-banner-label {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--c10);
+  text-transform: uppercase;
+}
+
+/* Grid de tarjetas informativas */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+/* Tarjeta individual */
+.a-card {
+  background: var(--grad-card);
+  border: 1px solid rgba(116, 0, 184, .22);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, border-color .3s;
+}
+
+.a-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(128, 255, 219, .35);
+}
+
+.a-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad-accent);
+}
+
+.a-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: .8rem;
+}
+
+.a-card-title {
+  font-family: var(--font-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--c9);
+  letter-spacing: .05em;
+  margin-bottom: .65rem;
+}
+
+.a-card-text {
+  font-size: .88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── Fotos del evento (entrada + punto de servicio) ──
+   Dos fotos portrait lado a lado.
+   entrada.jpg  ratio 722/971 ≈ 3:4
+   punto-servicio.jpg  ratio 900/1600 = 9:16
+   Cada slot usa el aspect-ratio de su imagen para NO recortar nada. */
+.about-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.about-photo-slot {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg2);
+  /* fondo oscuro para el espacio lateral si lo hay */
+  border: 1px solid rgba(116, 0, 184, .25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .3);
+}
+
+/* La primera foto (entrada) tiene ratio ~3:4 */
+.about-photo-slot:first-child {
+  aspect-ratio: 722 / 971;
+}
+
+/* La segunda (punto de servicio) tiene ratio ~9:16 */
+.about-photo-slot:last-child {
+  aspect-ratio: 9 / 16;
+}
+
+.about-photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* contain = imagen completa, sin ningún recorte */
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+.photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.2rem .8rem;
+  background: linear-gradient(transparent, rgba(6, 6, 15, .92));
+  font-size: .8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Ruta de ciudades ── */
+.route-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--c9);
+  text-align: center;
+  margin-bottom: 1.4rem;
+}
+
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: .75rem;
+}
+
+.city-chip {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .7rem 1rem;
+  background: rgba(94, 96, 206, .1);
+  border: 1px solid rgba(94, 96, 206, .22);
+  border-radius: var(--r-sm);
+  font-size: .82rem;
+  transition: border-color .25s, background .25s;
+}
+
+.city-chip:hover {
+  border-color: var(--c9);
+  background: rgba(94, 96, 206, .2);
+}
+
+.city-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.city-dot.done {
+  background: var(--c10);
+}
+
+.city-dot.soon {
+  background: var(--c4);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .3
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   7. SECCIÓN CONFERENCIAS
+   ────────────────────────────────────────────────────────── */
+#conferences {
+  padding: var(--pad-section);
+  background: linear-gradient(180deg, transparent, rgba(116, 0, 184, .04), transparent);
+}
+
+.conf-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tarjeta contenedora de una conferencia */
+.conf-card {
+  margin-bottom: 5rem;
+  border: 1px solid rgba(116, 0, 184, .18);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(12, 12, 30, .85);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, .35);
+}
+
+/* Encabezado de la conferencia */
+.conf-head {
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(116, 0, 184, .28), rgba(94, 96, 206, .1));
+  border-bottom: 1px solid rgba(116, 0, 184, .18);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+.conf-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+}
+
+.conf-meta {
+  flex: 1;
+}
+
+.conf-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  margin-bottom: .5rem;
+  color: var(--text);
+}
+
+.conf-speaker {
+  font-size: .9rem;
+  color: var(--c9);
+  margin-bottom: .2rem;
+}
+
+.conf-topic {
+  font-size: .82rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Cuerpo de la conferencia */
+.conf-body {
+  padding: 2.5rem;
+}
+
+/* ── GALERÍA CONFERENCIA 1 ──
+   Dos imágenes landscape lado a lado.
+   Cada slot usa el aspect-ratio EXACTO de la imagen → imagen completa, sin recorte.
+   conf1-figma.jpg    : 1224×664  ratio 1224:664
+   conf1-gracias.jpg  : 1600×900  ratio 16:9
+   align-items:start permite que cada columna tenga su propia altura natural. */
+.gallery-conf1 {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  align-items: start;
+}
+
+.gallery-conf1 .img-slot:first-child {
+  aspect-ratio: 1224 / 664;
+}
+
+.gallery-conf1 .img-slot:last-child {
+  aspect-ratio: 16 / 9;
+}
+
+/* ── GALERÍA CONFERENCIA 2 ──
+   Cada fila usa el aspect-ratio real de sus imágenes → sin recorte en ningún dispositivo.
+
+   Fila 1 (row-full):  gamer-zone.jpg    1600×1200  ratio 4:3 (landscape)
+   Fila 2 (row-duo):   gamer-interior.jpg 814×1600  ratio ≈ 1:2 (portrait)
+                       experiencia-ia.jpg 794×1600  ratio ≈ 1:2 (portrait)
+   Fila 3 (row-group): grupo.jpg         1280×960   ratio 4:3 (landscape)          */
+.gallery-conf2 {
+  margin-bottom: 2.5rem;
+}
+
+/* Fila 1 — Zona Gamer entrance (4:3 landscape) */
+.gallery-conf2 .row-full {
+  margin-bottom: 1rem;
+  aspect-ratio: 4 / 3;
+  /* ratio real de gamer-zone.jpg */
+}
+
+/* Fila 2 — Dos portrait muy verticales (~1:2)
+   Se muestran lado a lado. Con aspect-ratio individual quedan altas
+   pero el usuario ve la foto completa en cualquier pantalla. */
+.gallery-conf2 .row-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: start;
+}
+
+/* gamer-interior: 814×1600  /  experiencia-ia: 794×1600 — ambas casi 1:2 */
+.gallery-conf2 .row-duo .img-slot:first-child {
+  aspect-ratio: 814 / 1600;
+}
+
+.gallery-conf2 .row-duo .img-slot:last-child {
+  aspect-ratio: 794 / 1600;
+}
+
+/* Fila 3 — Foto grupal (4:3 landscape) */
+.gallery-conf2 .row-group {
+  aspect-ratio: 4 / 3;
+}
+
+/* ── Slot de imagen reutilizable ──
+   FONDO: var(--bg2) — mismo color oscuro del sitio.
+     Si el navegador necesita algún espacio de "letterbox"
+     (solo ocurre cuando una imagen es forzada fuera de su ratio natural),
+     se funde invisiblemente con el fondo oscuro del tema.
+   object-fit: CONTAIN — muestra la foto completa, SIN recortar ningún borde. */
+.img-slot {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg2);
+  /* fondo oscuro → letterbox invisible */
+  border: 1px solid rgba(116, 0, 184, .28);
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.img-slot:hover {
+  border-color: rgba(128, 255, 219, .45);
+  box-shadow: 0 8px 32px rgba(116, 0, 184, .25);
+}
+
+.img-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* ← CLAVE: imagen completa, sin recorte */
+  object-position: center center;
+  display: block;
+}
+
+/* Leyenda flotante sobre la imagen */
+.img-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 1rem .75rem;
+  background: linear-gradient(transparent, rgba(6, 6, 15, .88));
+  font-size: .75rem;
+  color: rgba(232, 232, 244, .8);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Pestañas bilingües ── */
+.bilingual-tabs {
+  display: flex;
+  width: fit-content;
+  border: 1px solid rgba(116, 0, 184, .3);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  margin-bottom: 1.4rem;
+}
+
+.b-tab {
+  padding: .48rem 1.4rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  transition: background .2s, color .2s;
+  font-family: var(--font-body);
+}
+
+.b-tab.active {
+  background: linear-gradient(135deg, var(--c1), var(--c3));
+  color: #fff;
+}
+
+.b-content {
+  display: none;
+}
+
+.b-content.active {
+  display: block;
+}
+
+.summary-text {
+  font-size: .93rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+
+.summary-text+.summary-text {
+  margin-top: 1rem;
+}
+
+/* Palabras clave */
+.kw-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--c8);
+  margin: 1.6rem 0 .75rem;
+}
+
+.kw-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.kw-tag {
+  padding: .3rem .9rem;
+  border-radius: 50px;
+  font-size: .78rem;
+  font-weight: 500;
+  background: rgba(116, 0, 184, .14);
+  border: 1px solid rgba(116, 0, 184, .32);
+  color: var(--c9);
+  transition: background .2s, border-color .2s;
+  cursor: default;
+}
+
+.kw-tag:hover {
+  background: rgba(116, 0, 184, .28);
+  border-color: var(--c9);
+}
+
+/* ──────────────────────────────────────────────────────────
+   8. SECCIÓN GLOSARIO
+   ────────────────────────────────────────────────────────── */
+#glossary {
+  padding: var(--pad-section);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Barra de búsqueda */
+.search-wrap {
+  position: relative;
+  max-width: 440px;
+  margin: 0 auto 2.5rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: .95rem;
+  pointer-events: none;
+}
+
+#glosSearch {
+  width: 100%;
+  padding: .85rem 1.2rem .85rem 3rem;
+  background: rgba(12, 12, 30, .8);
+  border: 1px solid rgba(116, 0, 184, .33);
+  border-radius: 50px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .25s;
+}
+
+#glosSearch:focus {
+  border-color: var(--c9);
+}
+
+#glosSearch::placeholder {
+  color: var(--text-muted);
+}
+
+/* Grid de términos */
+.glos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 1rem;
+}
+
+/* Tarjeta de término */
+.glos-item {
+  background: rgba(12, 12, 30, .65);
+  border: 1px solid rgba(94, 96, 206, .18);
+  border-radius: var(--r-md);
+  padding: 1.2rem;
+  transition: transform .25s, border-color .25s;
+}
+
+.glos-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(128, 255, 219, .35);
+}
+
+.glos-en {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--c10);
+  margin-bottom: .22rem;
+}
+
+.glos-es {
+  font-size: .78rem;
+  color: var(--c7);
+  font-style: italic;
+  margin-bottom: .65rem;
+}
+
+.glos-def {
+  font-size: .83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ──────────────────────────────────────────────────────────
+   9. SECCIÓN CONCLUSIÓN Y ÉTICA
+   ────────────────────────────────────────────────────────── */
+#conclusion {
+  padding: var(--pad-section);
+  background: linear-gradient(180deg, transparent, rgba(116, 0, 184, .06));
+}
+
+.conclusion-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.ethics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 2.5rem;
+}
+
+.ethics-card {
+  padding: 1.5rem 1.2rem;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(116, 0, 184, .22);
+  background: rgba(12, 12, 30, .7);
+  text-align: center;
+  transition: border-color .25s, transform .25s;
+}
+
+.ethics-card:hover {
+  border-color: rgba(128, 255, 219, .35);
+  transform: translateY(-3px);
+}
+
+.ethics-icon {
+  font-size: 2rem;
+  margin-bottom: .65rem;
+}
+
+.ethics-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--c9);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.conc-text {
+  font-size: .97rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+}
+
+.conc-text strong {
+  color: var(--c9);
+  font-weight: 600;
+}
+
+.conc-quote {
+  border-left: 3px solid var(--c7);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background: rgba(86, 207, 225, .05);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+/* ──────────────────────────────────────────────────────────
+   10. PIE DE PÁGINA
+   ────────────────────────────────────────────────────────── */
+footer {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(116, 0, 184, .18);
+  font-size: .82rem;
+  color: var(--text-muted);
+}
+
+footer a {
+  color: var(--c9);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--c10);
+}
+
+/* ──────────────────────────────────────────────────────────
+   11. ANIMACIÓN SCROLL-REVEAL
+   ────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respetar preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   12. RESPONSIVE — Breakpoints
+   Con aspect-ratio en todos los contenedores, las imágenes
+   escalan solas. Solo ajustamos columnas y paddings.
+   ────────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 900px) {
+
+  /* Conf 1: una columna (las dos imágenes se apilan) */
+  .gallery-conf1 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Conf 2 fila 2: portrait lado a lado sigue funcionando bien en tablet */
+  .gallery-conf2 .row-duo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* About photos: dos columnas sigue OK en tablet */
+  .about-photos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Móvil */
+@media (max-width: 720px) {
+  :root {
+    --pad-section: 4rem 1.2rem;
+  }
+
+  /* Ocultar nav links, mostrar hamburguesa */
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Menú móvil desplegable */
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(6, 6, 15, .97);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    border-bottom: 1px solid rgba(116, 0, 184, .28);
+  }
+
+  .conf-head {
+    flex-direction: column;
+    gap: .8rem;
+  }
+
+  .conf-num {
+    font-size: 2.5rem;
+  }
+
+  /* En móvil las dos portrait del row-duo se apilan
+     (quedan anchas y con su altura natural proporcional) */
+  .gallery-conf2 .row-duo {
+    grid-template-columns: 1fr;
+  }
+
+  /* About photos: una columna en móvil */
+  .about-photos {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    gap: 1.4rem;
+  }
+}
